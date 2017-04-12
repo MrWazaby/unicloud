@@ -1,0 +1,24 @@
+{
+  "name": "fluffy-front",
+  "description": "A front end in VueJS for the project",
+  "main": "",
+  "authors": [
+    "Alexandre Martin <alexandre@m4rtin.xyz>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/MrWazaby/Fluffy-UniCorn",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "skeleton": "^2.0.4",
+    "font-awesome": "Font-Awesome#^4.7.0",
+    "animate.css": "^3.5.2",
+    "github-markdown-css": "^2.6.0"
+  }
+}
