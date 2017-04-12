@@ -15,6 +15,7 @@ This app is a Free/Open Source school project for Efrei.
 
 
 ## TO-DO
+* Loading animation for remote content
 * Add more security to the token (login)
 * Add a cookie system
 * Make the App responsive
