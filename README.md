@@ -2,7 +2,7 @@
 
 > A web app for sharing learning materials
 
-**This project is still a prototype DON'T USE IT IN PRODUCTION**
+**This project is still an alpha DON'T USE IT IN PRODUCTION**
 
 ## Build Setup
 
@@ -15,14 +15,6 @@ This app is a Free/Open Source school project for Efrei.
 
 
 ## TO-DO
-* Loading animation for remote content
-* Add more security to the token (login)
-* Add a cookie system
-* Make the App responsive
-* Configure all the POST/UPDATE in the REST API
-* Allow users to upload an Avatar
-* Quizzs
-* Rewards/Stats
 * Evaluation + comments
-* Certified accounts
 * Back-office
+* Modify/Delete resources

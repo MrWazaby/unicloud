@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSheetsquizzsTable extends Migration
+class CreateNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateSheetsquizzsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sheetsquizzs', function (Blueprint $table) {
+        Schema::create('news', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('author');
-            $table->bigInteger('course');
-            $table->string('title');
             $table->text('content');
-            $table->smallInteger('score');
-            $table->boolean('quizz');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreateSheetsquizzsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sheetsquizzs');
+        Schema::dropIfExists('news');
     }
 }

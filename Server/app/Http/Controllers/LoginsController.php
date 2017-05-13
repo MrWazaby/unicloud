@@ -44,6 +44,7 @@ class LoginsController extends Controller
         $data["valid"] = true;
         $data["token"] = str_random(55);
         $user->token = $data["token"];
+        $user->ip = $request->ip();
         $user->save();
       }
 

@@ -2,21 +2,15 @@
   <footer id="footer">
     <div class="container">
       &copy 2017 - Unicloud<br>
-      <a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+      <a href="https://www.facebook.com/uniCloud.pjt/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a href="https://twitter.com/Unicloud_corn" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
     </div>
   </footer>
 </template>
 
 <script>
 import config from '../locale/config';
-import langFr from '../locale/fr';
-import langEn from '../locale/en';
 
-let lang;
-let langConf = config;
-
-if (langConf === 'en') lang = langEn;
-if (langConf === 'fr') lang = langFr;
+const lang = config(window.lang);
 
 export default {
   name: 'footer',
@@ -24,11 +18,6 @@ export default {
     return {
       lang,
     };
-  },
-  methods: {
-    changeLang(choice) {
-      langConf = choice;
-    },
   },
 };
 </script>
@@ -38,7 +27,7 @@ export default {
   footer, #footer {
     color: black;
     height: 60px;
-    background-color: #599494;
+    background-color: #bfbfbf;
     text-align: center;
     padding-top: 20px;
   }

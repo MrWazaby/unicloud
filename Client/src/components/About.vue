@@ -8,8 +8,8 @@
       </div>
       <div class="four columns aboutRight">
         <h3>{{ lang.aboutLinks }}</h3>
-        <a href="https://github.com/MrWazaby/unicloud"><img class="u-max-full-width github" src="../assets/github.png"></a><br>
-        <a href="http://groupe-efrei.fr"><img class="u-max-full-width efrei" src="../assets/efrei.png"></a>
+        <a href="https://github.com/MrWazaby/unicloud" target="_blank"><img class="u-max-full-width github" src="../assets/github.png"></a><br>
+        <a href="http://groupe-efrei.fr" target="_blank"><img class="u-max-full-width efrei" src="../assets/efrei.png"></a>
       </div>
     </div>
   </div>
@@ -18,14 +18,8 @@
 <script>
 import AppHeader from './AppHeader';
 import config from '../locale/config';
-import langFr from '../locale/fr';
-import langEn from '../locale/en';
 
-let lang;
-let langConf = config;
-
-if (langConf === 'en') lang = langEn;
-if (langConf === 'fr') lang = langFr;
+const lang = config(window.lang);
 
 export default {
   name: 'about',
@@ -36,11 +30,6 @@ export default {
     return {
       lang,
     };
-  },
-  methods: {
-    changeLang(choice) {
-      langConf = choice;
-    },
   },
 };
 </script>

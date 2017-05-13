@@ -13,6 +13,9 @@
 npm install
 bower install
 
+# change locale
+to change locale open index.html and edit window.lang (default = fr)
+
 # serve with hot reload at localhost:8080
 npm run dev
 

@@ -15,6 +15,8 @@ Route::resource('/api/token', 'TokensController');
 
 Route::resource('/api/login', 'LoginsController');
 
+Route::resource('/api/register', 'RegisterController');
+
 Route::resource('/api/profile', 'ProfileController');
 
 Route::resource('/api/classes', 'ClassesController');
@@ -22,3 +24,7 @@ Route::resource('/api/classes', 'ClassesController');
 Route::resource('/api/courses', 'CoursesController');
 
 Route::resource('/api/sheetsquizzs', 'SheetsQuizzsController');
+
+Route::resource('/api/promos', 'PromoController');
+
+Route::resource('/api/news', 'NewsController');

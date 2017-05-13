@@ -2,58 +2,54 @@
   <div class="env">
     <div id="content" class="container">
       <div class="eight columns about">
-        <h3>{{ lang.classes }}</h3>
-        <div v-for="(classe, index) in data.classes">
+        <spiner v-if="loading"></spiner>
+        <div v-else>
+          <h3>{{ lang.classes }}</h3>
+          <div v-for="(classe, index) in data.classes">
 
-          <div class="course" v-on:click="showCourses(classe.id, index)"><span class="dot">{{ classe.showSymb }} </span> {{ classe.name }}</div>
-          <transition name="custom-classes-transition" enter-active-class="animated fadeIn">
-            <div class="classes" v-if="show[classe.id]">
-              <div v-for="course in data.courses[classe.id]">
-                <router-link v-bind:to="'/hub/' + course.id">{{ course.name }}</router-link><br>
+            <div class="course" v-on:click="showCourses(classe.id, index)"><span class="dot">{{ classe.showSymb }} </span> {{ classe.name }}</div>
+            <transition name="custom-classes-transition" enter-active-class="animated fadeIn">
+              <div class="classes" v-if="show[classe.id]">
+                <div v-for="course in data.courses[classe.id]">
+                  <router-link v-bind:to="'/hub/' + course.id">{{ course.name }}</router-link><br>
+                </div>
               </div>
-            </div>
-          </transition>
+            </transition>
 
+          </div>
         </div>
       </div>
 
-      <div class="four columns aboutRight">
-        <div class="rightContainer">
-          <h3>{{ lang.news }}</h3>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-      </div>
+      <news></news>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Spiner from './Spiner';
+import News from './News';
 import config from '../locale/config';
-import langFr from '../locale/fr';
-import langEn from '../locale/en';
-
-let lang;
-let langConf = config;
 
 const data = {};
 
-if (langConf === 'en') lang = langEn;
-if (langConf === 'fr') lang = langFr;
+const lang = config(window.lang);
 
 export default {
   name: 'classes',
+  components: {
+    spiner: Spiner,
+    news: News,
+  },
   data() {
     return {
       lang,
       data,
       show: {},
+      loading: true,
     };
   },
   methods: {
-    changeLang(choice) {
-      langConf = choice;
-    },
     showCourses(id, index) {
       this.$data.show[id] = !this.$data.show[id];
       if (this.$data.data.classes[index].showSymb === '+') this.$data.data.classes[index].showSymb = '-';
@@ -68,6 +64,7 @@ export default {
       },
     })
     .then((response) => {
+      this.$data.loading = false;
       if (response.data.valid === false) {
         window.apiToken = undefined;
         this.$forceUpdate();
@@ -93,10 +90,6 @@ export default {
 
   .about {
     margin-top: 80px;
-  }
-
-  .aboutRight {
-    text-align: justify;
   }
 
   .rightContainer {

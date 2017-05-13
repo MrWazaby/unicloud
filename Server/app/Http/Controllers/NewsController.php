@@ -3,40 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Login;
-use App\Course;
-use App\Classe;
-use App\SheetQuizz;
+use App\News;
 
-class CoursesController extends Controller
+class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-     public function index(Request $request)
-     {
-       $user = Login::where([['token', $request->token], ['ip', $request->ip()]])->first();
-       $course = Course::where('id', $request->id)->first();
-       $classe = Classe::where('id', $course->id_classe)->first();
-
-       if(isset($user) and !empty($user) and $classe->promo == $user->promo) {
-         $data["course"] = $course;
-
-         $data["sheets"] = SheetQuizz::select('id', 'title', 'author', 'quizz')->where('course', $course->id)->get();
-         foreach ($data["sheets"] as $key => $value) {
-           $author = Login::where('id', $value->author)->first();
-           $data["sheets"][$key]->certified = $author->certified;
-         }
-
-         $data["valid"] = true;
-       } else {
-         $data["valid"] = false;
-       }
-
-       return $data;
-     }
+    public function index()
+    {
+        return News::orderBy('id', 'desc')->first();
+    }
 
     /**
      * Show the form for creating a new resource.

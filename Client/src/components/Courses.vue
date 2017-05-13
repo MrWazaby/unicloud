@@ -2,55 +2,74 @@
   <div class="env">
     <div id="content" class="container">
       <div class="eight columns about">
-        <h3>{{ data.course.name }}</h3>
-        <router-link to="/hub/"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> {{ lang.back }}</router-link>
-        <h4>{{ lang.sheets }}</h4>
-        <div v-for="sheet in data.sheets">
-            <router-link v-bind:to="'/hub/' + data.course.id + '/' + sheet.id">{{ sheet.title }}</router-link><br>
+        <spiner v-if="loading"></spiner>
+        <div v-else>
+          <h3>{{ data.course.name }}</h3>
+          <router-link to="/hub/"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> {{ lang.back }}</router-link>
+          <span class="create"><router-link v-bind:to="'/hub/' + data.course.id + '/create'"><i class="fa fa-pencil" aria-hidden="true"></i> {{ lang.createSheet }}</router-link></span>
+          <h4>{{ lang.sheets }}</h4>
+          <div v-for="sheet in data.sheets">
+            <span v-if="sheet.certified" >
+              <span v-if="!sheet.quizz">
+                <router-link v-bind:to="'/hub/' + data.course.id + '/' + sheet.id">{{ sheet.title }}</router-link> <i class="fa fa-check-circle" aria-hidden="true"></i><br>
+              </span>
+            </span>
+          </div>
+          <div v-for="sheet in data.sheets">
+            <span v-if="!sheet.certified" >
+              <span v-if="!sheet.quizz">
+                <router-link v-bind:to="'/hub/' + data.course.id + '/' + sheet.id">{{ sheet.title }}</router-link><br>
+              </span>
+            </span>
+          </div>
+          <h4>{{ lang.quizzs }}</h4>
+          <div v-for="sheet in data.sheets">
+            <span v-if="sheet.certified" >
+              <span v-if="sheet.quizz">
+                <router-link v-bind:to="'/hub/' + data.course.id + '/' + sheet.id">{{ sheet.title }}</router-link> <i class="fa fa-check-circle" aria-hidden="true"></i><br>
+              </span>
+            </span>
+          </div>
+          <div v-for="sheet in data.sheets">
+            <span v-if="!sheet.certified" >
+              <span v-if="sheet.quizz">
+                <router-link v-bind:to="'/hub/' + data.course.id + '/' + sheet.id">{{ sheet.title }}</router-link><br>
+              </span>
+            </span>
+          </div>
         </div>
-        <h4>{{ lang.quizzs }}</h4>
-        {{ lang.errorQuizzs }}
       </div>
 
-      <div class="four columns aboutRight">
-        <div class="rightContainer">
-          <h3>{{ lang.news }}</h3>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-      </div>
+      <news></news>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Spiner from './Spiner';
+import News from './News';
 import config from '../locale/config';
-import langFr from '../locale/fr';
-import langEn from '../locale/en';
 
-let lang;
-let langConf = config;
+const lang = config(window.lang);
 
 const data = {};
 data.course = {};
 data.sheets = {};
 
-if (langConf === 'en') lang = langEn;
-if (langConf === 'fr') lang = langFr;
-
 export default {
   name: 'classes',
+  components: {
+    spiner: Spiner,
+    news: News,
+  },
   data() {
     return {
       lang,
       data,
       show: {},
+      loading: true,
     };
-  },
-  methods: {
-    changeLang(choice) {
-      langConf = choice;
-    },
   },
   mounted() {
     axios.get('/api/courses', {
@@ -60,6 +79,7 @@ export default {
       },
     })
     .then((response) => {
+      this.$data.loading = false;
       if (response.data.valid === false) {
         window.apiToken = undefined;
         this.$forceUpdate();
@@ -89,16 +109,6 @@ export default {
     margin-top: 80px;
   }
 
-  .aboutRight {
-    text-align: justify;
-  }
-
-  .rightContainer {
-    margin-top: 80px;
-    background-color: #599494;
-    padding: 20px;
-  }
-
   a {
     color: black;
     text-decoration: none;
@@ -106,5 +116,13 @@ export default {
 
   a:hover {
     color: rgb(65, 65, 65);
+  }
+
+  .create {
+    float: right;
+  }
+
+  .fa-check-circle {
+    color: rgb(83, 178, 255);
   }
 </style>

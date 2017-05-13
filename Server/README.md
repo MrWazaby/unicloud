@@ -2,7 +2,7 @@
 
 > A Laravel REST API for Unicloud
 
-## Server Requirezments  
+## Server Requirements  
   
 * PHP >= 5.6.4
 * MySQL
@@ -20,6 +20,9 @@
 # install dependencies
 npm install
 composer install
+
+# generate an app key
+php artisan key:generate
 
 # copy and edit your .env 
 cp .env.example .env

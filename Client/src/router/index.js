@@ -5,6 +5,7 @@ import Register from '@/components/Register';
 import About from '@/components/About';
 import Hub from '@/components/Hub';
 import Profile from '@/components/Profile';
+import EditProfile from '@/components/EditProfile';
 
 Vue.use(Router);
 
@@ -43,6 +44,16 @@ export default new Router({
     {
       path: '/profile',
       name: 'Profile',
+      component: Profile,
+    },
+    {
+      path: '/profile/edit',
+      name: 'EditProfile',
+      component: EditProfile,
+    },
+    {
+      path: '/profile/:id',
+      name: 'OtherProfile',
       component: Profile,
     },
     {

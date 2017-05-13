@@ -16,7 +16,7 @@ class ClassesController extends Controller
      */
      public function index(Request $request)
      {
-       $user = Login::where('token', $request->token)->first();
+       $user = Login::where([['token', $request->token], ['ip', $request->ip()]])->first();
        if(isset($user) and !empty($user)) {
          $data["classes"] = Classe::where('promo', $user->promo)->get();
          foreach($data["classes"] as $classe) {
